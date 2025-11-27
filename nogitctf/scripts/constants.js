@@ -15,6 +15,9 @@ const groundPos = 525;
 const animations = [];
 const startingLevelIndex = 2;
 const numLevels = 5;
+const threePlayerStartingIndex = 0;
+const threePlayerNumLevels = 1;
+
 let numPlayers = 2;
 
 //gameplay constants

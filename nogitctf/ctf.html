@@ -12,21 +12,7 @@
   <body>
     <main>
       <nav>
-        <div class="themeContainer">
-          <div id="description"></div>
-          <div class="fsClick" width="40px" height="40px">
-            <img
-              id="fullscreen"
-              src="assets/nfs.png"
-              alt=""
-              width="20px"
-              height="20px"
-            />
-          </div>
-          <img src="assets/unlock.png" alt="map-lock" id="lock" />
-        </div>
-
-        <div class="scoreContainer">
+        <div class="score-container" id="twoPlayerContainer">
           <div class="red">
             <h1 id="redScore">0</h1>
           </div>
@@ -37,14 +23,39 @@
             <h1 id="blueScore">0</h1>
           </div>
         </div>
-
-        <div class="btn-container">
-          <button class="btn" id="restart">Restart Game</button>
+        <div
+          class="score-container"
+          id="threePlayerContainer"
+          style="display: none"
+        >
+          <div class="red">
+            <h1 id="redScore">0</h1>
+          </div>
+          <div class="blue">
+            <h1 id="blueScore">0</h1>
+          </div>
+          <div class="green">
+            <h1 id="greenScore">0</h1>
+          </div>
         </div>
       </nav>
 
       <canvas id="myCanvas" width="1370px" height="725px"></canvas>
-
+      <footer>
+        <div id="description"></div>
+        <div class="fsClick" width="40px" height="40px">
+          <img
+            id="fullscreen"
+            src="assets/nfs.png"
+            alt=""
+            width="20px"
+            height="20px"
+          />
+        </div>
+        <img src="assets/unlock.png" alt="map-lock" id="lock" />
+        <button class="btn" id="restart">Restart Game</button>
+        <button class="btn" id="players">3 Players</button>
+      </footer>
       <script src="scripts/draw.js"></script>
       <script src="scripts/constants.js"></script>
       <script src="scripts/navbar.js"></script>

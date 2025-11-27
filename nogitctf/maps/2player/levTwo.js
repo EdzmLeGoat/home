@@ -1,5 +1,5 @@
 //groundpos is 525
-const lev2Platform1 = new Rectangle(
+lev2Platform1 = new Rectangle(
   canvCenter - 15,
   groundPos - 250,
   30,
@@ -12,7 +12,7 @@ const lev2Platform1 = new Rectangle(
   false,
   "lev2centercol"
 );
-const lev2Platform2 = new Rectangle(
+lev2Platform2 = new Rectangle(
   canvCenter - 60,
   lev2Platform1.y - 15,
   60 * 2,
@@ -25,7 +25,7 @@ const lev2Platform2 = new Rectangle(
   false,
   "lev2centerhor"
 );
-const lev2Platform3 = new Rectangle(
+lev2Platform3 = new Rectangle(
   canvCenter - 100,
   lev2Platform1.y + lev2Platform1.h,
   100 * 2,
@@ -39,7 +39,7 @@ const lev2Platform3 = new Rectangle(
   "lev2centerhorbig"
 );
 
-const lev2Platform4 = new Rectangle(
+lev2Platform4 = new Rectangle(
   canvCenter - 15,
   groundPos - 135,
   30,
@@ -53,10 +53,10 @@ const lev2Platform4 = new Rectangle(
   "lev2centercolbelow"
 );
 
-let txpos = canvCenter + 200;
-let txpos2 = canvCenter - 200;
+txpos = canvCenter + 200;
+txpos2 = canvCenter - 200;
 
-const lev2Platform5 = new Rectangle(
+lev2Platform5 = new Rectangle(
   txpos - 30,
   groundPos - 100,
   100,
@@ -69,7 +69,7 @@ const lev2Platform5 = new Rectangle(
   false,
   "lev2t1"
 );
-const lev2Platform6 = new Rectangle(
+lev2Platform6 = new Rectangle(
   txpos2 - 70,
   groundPos - 100,
   100,
@@ -83,7 +83,7 @@ const lev2Platform6 = new Rectangle(
   "lev2t1"
 );
 
-const lev2Platform7 = new Rectangle(
+lev2Platform7 = new Rectangle(
   txpos - 10,
   groundPos - 100,
   20,
@@ -96,7 +96,7 @@ const lev2Platform7 = new Rectangle(
   false,
   "lev2t2"
 );
-const lev2Platform8 = new Rectangle(
+lev2Platform8 = new Rectangle(
   txpos2 - 10,
   groundPos - 100,
   20,
@@ -110,10 +110,10 @@ const lev2Platform8 = new Rectangle(
   "lev2t2"
 );
 
-let vertxpos = canvCenter + 550;
-let vertxpos2 = canvCenter - 550;
+vertxpos = canvCenter + 550;
+vertxpos2 = canvCenter - 550;
 
-const lev2MovingVert1 = new MovingRectangle(
+lev2MovingVert1 = new MovingRectangle(
   vertxpos - 40,
   groundPos - 305,
   40 * 2,
@@ -132,7 +132,7 @@ const lev2MovingVert1 = new MovingRectangle(
   25,
   true
 );
-const lev2MovingVert2 = new MovingRectangle(
+lev2MovingVert2 = new MovingRectangle(
   vertxpos2 - 40,
   groundPos - 305,
   40 * 2,
@@ -152,10 +152,10 @@ const lev2MovingVert2 = new MovingRectangle(
   true
 );
 
-let dangerxpos = canvCenter + 250;
-let dangerxpos2 = canvCenter - 250;
+dangerxpos = canvCenter + 250;
+dangerxpos2 = canvCenter - 250;
 
-const lev2MovingDanger1 = new MovingRectangle(
+lev2MovingDanger1 = new MovingRectangle(
   dangerxpos - 10,
   groundPos - 225,
   20,
@@ -174,7 +174,7 @@ const lev2MovingDanger1 = new MovingRectangle(
   1.58,
   false
 );
-const lev2MovingDanger2 = new MovingRectangle(
+lev2MovingDanger2 = new MovingRectangle(
   dangerxpos2 - 10,
   groundPos - 225,
   20,
@@ -194,7 +194,7 @@ const lev2MovingDanger2 = new MovingRectangle(
   false
 );
 
-const lev2centerBorderThing = new Rectangle(
+lev2centerBorderThing = new Rectangle(
   canvCenter - 15,
   0,
   30,
@@ -208,20 +208,20 @@ const lev2centerBorderThing = new Rectangle(
   "bordertop"
 );
 
-const lev2PlayerPos1 = [100, groundPos - gamePlayerOne.h - 20, true];
-const lev2PlayerPos2 = [
+lev2PlayerPos1 = [100, groundPos - gamePlayerOne.h - 20, true];
+lev2PlayerPos2 = [
   canvWidth - 100 - gamePlayerTwo.w,
   groundPos - gamePlayerTwo.h - 20,
   true,
 ];
-const lev2PlayerPos = [lev2PlayerPos1, lev2PlayerPos2];
+lev2PlayerPos = [lev2PlayerPos1, lev2PlayerPos2];
 
 //object list used for drawing
-const lev2ObjectList = [];
-const lev2PlatformList = [];
-const lev2DangerList = [];
-const lev2MovePlats = [];
-const lev2DangerMovePlats = [];
+lev2ObjectList = [];
+lev2PlatformList = [];
+lev2DangerList = [];
+lev2MovePlats = [];
+lev2DangerMovePlats = [];
 
 [leftBound, rightBound].forEach((bound) => {
   lev2PlatformList.push(bound);
@@ -230,7 +230,7 @@ const lev2DangerMovePlats = [];
   lev2ObjectList.push(thing);
 });
 
-const lev2Platforms = [
+lev2Platforms = [
   ground,
   lev2Platform1,
   lev2Platform2,
@@ -247,21 +247,21 @@ lev2Platforms.forEach((platform) => {
   lev2ObjectList.push(platform);
 });
 
-const lev2MPlats = [lev2MovingVert1, lev2MovingVert2];
+lev2MPlats = [lev2MovingVert1, lev2MovingVert2];
 lev2MPlats.forEach((platform) => {
   lev2MovePlats.push(platform);
   lev2ObjectList.push(platform);
   lev2PlatformList.push(platform);
 });
 
-const lev2DP = [lev2MovingDanger1, lev2MovingDanger2];
+lev2DP = [lev2MovingDanger1, lev2MovingDanger2];
 lev2DP.forEach((platform) => {
   lev2DangerMovePlats.push(platform);
   lev2ObjectList.push(platform);
 });
 //clearRect needs to be added last
 
-const lev2 = [
+lev2 = [
   lev2ObjectList,
   lev2PlatformList,
   lev2DangerList,

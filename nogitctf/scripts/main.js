@@ -189,9 +189,7 @@ const resetAll = (level) => {
 
 const runLevel = async (levelNumber) => {
   let level = levelList[levelNumber];
-  console.log("level " + level[6]);
   resetAll(level);
-  console.log("level start");
   return await doTwoPlayerLoop(level);
 };
 
@@ -201,7 +199,7 @@ document.addEventListener("onkeyup", function (e) {
   }
 });
 
-changeLevel = () => {
+const changeLevel = () => {
   levelNum = (levelNum + 1) % numLevels;
 };
 
@@ -211,54 +209,66 @@ const centerText = document.getElementById("results");
 let levelNum = startingLevelIndex;
 
 const runGame = async () => {
-  let runs = 1;
+  if (numPlayers == 2) {
+    let runs = 1;
 
-  let redScore = 0;
-  let blueScore = 0;
-  redScoreText.innerText = `${redScore}`;
-  blueScoreText.innerText = `${blueScore}`;
+    let redScore = 0;
+    let blueScore = 0;
+    redScoreText.innerText = `${redScore}`;
+    blueScoreText.innerText = `${blueScore}`;
 
-  while (redScore < maxScore && blueScore < maxScore) {
-    if (runs != 1 && !mapLocked) {
-      changeLevel();
-    }
-    let objlist = levelList[levelNum][0];
-    if (runs != 1) {
-      resetAll(levelList[levelNum]);
-      await levelClearUp(objlist);
-    }
-    centerText.innerText = "FIGHT!";
-    if (redScore == maxScore - 1 || blueScore == maxScore - 1) {
-      if (redScore == maxScore - 1 && blueScore == maxScore - 1) {
-        centerText.innerText = "CRITICAL MATCH POINT";
-      } else {
-        centerText.innerText = "MATCH POINT";
+    while (redScore < maxScore && blueScore < maxScore) {
+      if (runs != 1 && !mapLocked) {
+        changeLevel();
       }
+      let objlist = levelList[levelNum][0];
+      if (runs != 1) {
+        resetAll(levelList[levelNum]);
+        await levelClearUp(objlist);
+      }
+      centerText.innerText = "FIGHT!";
+      if (redScore == maxScore - 1 || blueScore == maxScore - 1) {
+        if (redScore == maxScore - 1 && blueScore == maxScore - 1) {
+          centerText.innerText = "CRITICAL MATCH POINT";
+        } else {
+          centerText.innerText = "MATCH POINT";
+        }
+      }
+      let result = await runLevel(levelNum);
+      if (result == "one") {
+        redScore++;
+        redScoreText.innerText = `${redScore}`;
+        centerText.innerText = "RED WINS!";
+      } else if (result == "two") {
+        blueScore++;
+        blueScoreText.innerText = `${blueScore}`;
+        centerText.innerText = "BLUE WINS!";
+      } else {
+        centerText.innerText = "TIE";
+      }
+      await levelClearDown(objlist);
+      runs++;
     }
-    let result = await runLevel(levelNum);
-    if (result == "one") {
-      redScore++;
-      redScoreText.innerText = `${redScore}`;
-      centerText.innerText = "RED WINS!";
-    } else if (result == "two") {
-      blueScore++;
-      blueScoreText.innerText = `${blueScore}`;
-      centerText.innerText = "BLUE WINS!";
+
+    if (redScore == maxScore) {
+      centerText.innerText = "RED WINS THE GAME!";
     } else {
-      centerText.innerText = "TIE";
+      centerText.innerText = "BLUE WINS THE GAME!";
     }
-    await levelClearDown(objlist);
-    runs++;
-  }
 
-  if (redScore == maxScore) {
-    centerText.innerText = "RED WINS THE GAME!";
+    render.clearRect(0, 0, canvWidth, canvHeight);
+    await levelClearUp([], true);
   } else {
-    centerText.innerText = "BLUE WINS THE GAME!";
-  }
+    //three player mode
+    let runs = 1;
 
-  render.clearRect(0, 0, canvWidth, canvHeight);
-  await levelClearUp([], true);
+    let redScore = 0;
+    let blueScore = 0;
+    let greenScore = 0;
+    redScoreText.innerText = `${redScore}`;
+    blueScoreText.innerText = `${blueScore}`;
+    greenScoreText.innerText = `${greenScore}`;
+  }
 };
 
 runGame();
@@ -266,5 +276,23 @@ runGame();
 document.getElementById("restart").onclick = () => {
   animations.forEach((animation) => animation.cancel());
   if (!mapLocked) changeLevel();
+  runGame();
+};
+
+document.getElementById("players").onclick = () => {
+  animations.forEach((animation) => animation.cancel());
+  if (numPlayers == 2) {
+    numPlayers = 3;
+    document.getElementById("players").innerText = "3 Players";
+    document.getElementById("twoPlayerContainer").style.display = "none";
+    document.getElementById("threePlayerContainer").style.display = "flex";
+    levelNum = threePlayerStartingIndex;
+  } else {
+    numPlayers = 2;
+    document.getElementById("players").innerText = "2 Players";
+    document.getElementById("twoPlayerContainer").style.display = "flex";
+    document.getElementById("threePlayerContainer").style.display = "none";
+    levelNum = startingLevelIndex;
+  }
   runGame();
 };
