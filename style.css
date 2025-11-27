@@ -1,0 +1,75 @@
+:root {
+  --accent-color: #89fe2a;
+  --accent-dark-color: #223914;
+  --accent-text-color: #cbffb0;
+  --gray-color: #7b6a95;
+  --gray-background-color: #1b1820;
+  --gray-light-color: #84739e;
+  --background-color: #121212;
+  --text-color: #ffffff;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav {
+  background-color: var(--gray-background-color);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+nav img {
+  height: 70px;
+  margin-right: 1rem;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+h1 {
+  color: var(--accent-text-color);
+}
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+}
+.game-card {
+  background-color: var(--gray-background-color);
+  border: 2px solid var(--accent-dark-color);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  width: 30%;
+  &:hover {
+    border-color: var(--accent-color);
+    filter: brightness(1.1);
+  }
+}
+.game-card.incomplete {
+  opacity: 0.6;
+  height: 50px;
+}
+.game-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}

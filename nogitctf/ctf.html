@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="ctfstyle.css" />
+    <title>Edem's Capture the Flag</title>
+  </head>
+  <body>
+    <main>
+      <nav>
+        <div class="themeContainer">
+          <div id="description"></div>
+          <div class="fsClick" width="40px" height="40px">
+            <img
+              id="fullscreen"
+              src="assets/nfs.png"
+              alt=""
+              width="20px"
+              height="20px"
+            />
+          </div>
+          <img src="assets/unlock.png" alt="map-lock" id="lock" />
+        </div>
+
+        <div class="scoreContainer">
+          <div class="red">
+            <h1 id="redScore">0</h1>
+          </div>
+          <div class="center">
+            <h1 id="results">FIGHT!</h1>
+          </div>
+          <div class="blue">
+            <h1 id="blueScore">0</h1>
+          </div>
+        </div>
+
+        <div class="btn-container">
+          <button class="btn" id="restart">Restart Game</button>
+        </div>
+      </nav>
+
+      <canvas id="myCanvas" width="1370px" height="725px"></canvas>
+
+      <script src="scripts/draw.js"></script>
+      <script src="scripts/constants.js"></script>
+      <script src="scripts/navbar.js"></script>
+      <script src="maps/2player/levOne.js"></script>
+      <script src="maps/2player/levTwo.js"></script>
+      <script src="maps/2player/levThree.js"></script>
+      <script src="maps/2player/levFour.js"></script>
+      <script src="maps/2player/levFive.js"></script>
+      <script src="scripts/transitions.js"></script>
+      <script src="scripts/lib.js"></script>
+      <script src="scripts/collisions.js"></script>
+      <script src="scripts/main.js"></script>
+
+      <a href="../index.html">Back to Home</a>
+    </main>
+  </body>
+</html>
