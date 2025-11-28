@@ -13,8 +13,14 @@ const canvHeight = canvas.height;
 const canvCenter = canvWidth / 2;
 const groundPos = 525;
 const animations = [];
+
 const startingLevelIndex = 2;
 const numLevels = 5;
+
+const threePlayerStartingIndex = 0;
+const threePlayerNumLevels = 1;
+const threePlayerMaxScore = 45;
+
 let numPlayers = 2;
 
 //gameplay constants
@@ -25,6 +31,7 @@ const maxVel = 4.5;
 const friction = 0.91;
 
 const fps = 60;
+const targetFrameTime = 1000 / fps;
 
 const knockback = 0.3;
 
@@ -67,7 +74,7 @@ const flashFrames = fps / 2;
 
 //player constants
 const playerVisibility = 0.3;
-const flagSpeedDebuff = 0.94;
+let flagSpeedDebuff = 0.94;
 
 const flaggedSpeed = movementSpeed * flagSpeedDebuff;
 const flaggedMaxVel = maxVel * flagSpeedDebuff;
@@ -308,6 +315,7 @@ const crownImage = new Image();
 crownImage.src = "assets/crown.png";
 
 const levelList = [];
+const threePlayerLevelList = [];
 
 (() => {
   [

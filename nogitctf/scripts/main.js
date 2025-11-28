@@ -9,20 +9,15 @@ const doTwoPlayerLoop = (level) => {
   let playerTwoDeadFrames = fps * initialTimeout;
 
   // Cache commonly accessed properties
-  const gamePlayerOneHalfWidth = gamePlayerOne.w / 2;
-  const gamePlayerTwoHalfWidth = gamePlayerTwo.w / 2;
+  const halfWidth = gamePlayerOne.w / 2;
 
-  let playerOneMid = gamePlayerOne.x + gamePlayerOneHalfWidth;
-  let playerTwoMid = gamePlayerTwo.x + gamePlayerTwoHalfWidth;
+  let playerOneMid = gamePlayerOne.x + halfWidth;
+  let playerTwoMid = gamePlayerTwo.x + halfWidth;
   let playerOneDanger = playerOneMid > canvCenter;
   let playerTwoDanger = playerTwoMid < canvCenter;
   let oneFIG = 0;
   let twoFIG = 0;
 
-  // Frame timing variables for requestAnimationFrame
-  let lastTime = 0;
-  const targetFrameTime = 1000 / fps;
-  let animationId = null;
   let isRunning = true;
   let dangers = dangerList.concat(movingDanger);
 
@@ -64,8 +59,8 @@ const doTwoPlayerLoop = (level) => {
           redFlag.y = gamePlayerTwo.y - gamePlayerTwo.h;
         }
 
-        playerOneMid = gamePlayerOne.x + gamePlayerOneHalfWidth;
-        playerTwoMid = gamePlayerTwo.x + gamePlayerTwoHalfWidth;
+        playerOneMid = gamePlayerOne.x + halfWidth;
+        playerTwoMid = gamePlayerTwo.x + halfWidth;
         playerOneDanger = playerOneMid > canvCenter || gamePlayerOne.flagged;
         playerTwoDanger = playerTwoMid < canvCenter || gamePlayerTwo.flagged;
 
@@ -181,18 +176,177 @@ const doTwoPlayerLoop = (level) => {
   });
 };
 
+const doThreePlayerLoop = (level) => {
+  let objList = level[0];
+  let platList = level[1];
+  let movingPlats = level[2];
+  let frame = 1;
+  let deadFrames = [];
+  let invulnerableFrames = [0, 0, 0];
+  for (let i = 0; i < 3; i++) {
+    deadFrames.push(fps * initialTimeout);
+  }
+
+  let isRunning = true;
+  let tiebreaker = 0;
+  gamePlayers[tiebreaker].flagged = true;
+  gamePlayers[tiebreaker].movementSpeed = flaggedSpeed;
+
+  let threePlayerResetAll = () => {
+    //all players colliding
+    tiebreaker = (tiebreaker + 1) % 3;
+    resetAll(level);
+    for (let i = 0; i < 3; i++) {
+      deadFrames[i] = fps * initialTimeout;
+    }
+    gamePlayers[tiebreaker].flagged = true;
+    gamePlayers[tiebreaker].movementSpeed = flaggedSpeed;
+  };
+  let changeCrown = (giver, holder) => {
+    deadFrames[giver.index] = threePlayerReset(giver, level);
+    holder.flagged = true;
+    holder.movementSpeed = flaggedSpeed;
+    invulnerableFrames[holder.index] = fps * 2;
+  };
+  let scoreElements = [
+    threePlayerRedScore,
+    threePlayerBlueScore,
+    threePlayerGreenScore,
+  ];
+  return new Promise((resolve) => {
+    const loopInterval = setInterval(() => {
+      if (!isRunning) return;
+
+      // decrement death frames
+      for (let player of gamePlayers) {
+        if (deadFrames[player.index] > 0) {
+          deadFrames[player.index]--;
+          if (deadFrames[player.index] == 0) {
+            player.a = 1;
+            player.oc = "white";
+          }
+        }
+        if (invulnerableFrames[player.index] > 0) {
+          invulnerableFrames[player.index]--;
+        }
+      }
+
+      threePlayerDoEverything(objList, platList, movingPlats, [
+        deadFrames[0] < 1,
+        deadFrames[1] < 1,
+        deadFrames[2] < 1,
+      ]);
+
+      inDangers = [false, false, false];
+
+      for (let player of gamePlayers) {
+        if (player.flagged) {
+          crownRect.x = player.x;
+          crownRect.y = player.y - player.h;
+          if (invulnerableFrames[player.index] == 0) {
+            inDangers[player.index] = true;
+          }
+          if (frame > fps * 2) {
+            if (frame % fps == 0) {
+              const el = scoreElements[player.index];
+              const currentScore =
+                parseInt((el && el.textContent) || "0", 10) || 0;
+              const newScore = currentScore + 1;
+              if (el) el.textContent = `${newScore}`;
+              if (newScore >= threePlayerMaxScore) {
+                isRunning = false;
+                clearInterval(loopInterval);
+                resolve(player.n);
+                return;
+              }
+            }
+          }
+        }
+      }
+
+      if (inDangers[0]) {
+        twoColliding =
+          rectsColliding(gamePlayerOne, gamePlayerTwo) && deadFrames[1] == 0;
+        threeColliding =
+          rectsColliding(gamePlayerOne, gamePlayerThree) && deadFrames[2] == 0;
+        if (twoColliding && threeColliding) {
+          threePlayerResetAll();
+        } else if (twoColliding) {
+          changeCrown(gamePlayerOne, gamePlayerTwo);
+        } else if (threeColliding) {
+          changeCrown(gamePlayerOne, gamePlayerThree);
+        }
+      }
+      if (inDangers[1]) {
+        oneColliding =
+          rectsColliding(gamePlayerOne, gamePlayerTwo) && deadFrames[0] == 0;
+        threeColliding =
+          rectsColliding(gamePlayerTwo, gamePlayerThree) && deadFrames[2] == 0;
+        if (oneColliding && threeColliding) {
+          threePlayerResetAll();
+        } else if (oneColliding) {
+          changeCrown(gamePlayerTwo, gamePlayerOne);
+        } else if (threeColliding) {
+          changeCrown(gamePlayerTwo, gamePlayerThree);
+        }
+      }
+      if (inDangers[2]) {
+        oneColliding =
+          rectsColliding(gamePlayerOne, gamePlayerThree) && deadFrames[0] == 0;
+        twoColliding =
+          rectsColliding(gamePlayerTwo, gamePlayerThree) && deadFrames[1] == 0;
+        if (twoColliding && oneColliding) {
+          threePlayerResetAll();
+        } else if (twoColliding) {
+          changeCrown(gamePlayerThree, gamePlayerTwo);
+        } else if (oneColliding) {
+          changeCrown(gamePlayerThree, gamePlayerOne);
+        }
+      }
+
+      frame++;
+    }, targetFrameTime);
+
+    animations.push({
+      type: "interval",
+      id: loopInterval,
+      cancel: () => {
+        isRunning = false;
+        clearInterval(loopInterval);
+      },
+    });
+  });
+};
+
+const resetCrown = (level) => {
+  crownRect.x = level[4][0];
+  crownRect.y = level[4][1];
+};
+
 const resetAll = (level) => {
-  reset(gamePlayerOne, level);
-  reset(gamePlayerTwo, level);
-  resetFlags();
+  if (numPlayers == 2) {
+    reset(gamePlayerOne, level);
+    reset(gamePlayerTwo, level);
+    resetFlags();
+  } else {
+    threePlayerResults.style.display = "none";
+    threePlayerReset(gamePlayerOne, level);
+    threePlayerReset(gamePlayerTwo, level);
+    threePlayerReset(gamePlayerThree, level);
+    resetCrown(level);
+  }
 };
 
 const runLevel = async (levelNumber) => {
-  let level = levelList[levelNumber];
-  console.log("level " + level[6]);
-  resetAll(level);
-  console.log("level start");
-  return await doTwoPlayerLoop(level);
+  if (numPlayers === 2) {
+    let level = levelList[levelNumber];
+    resetAll(level);
+    return await doTwoPlayerLoop(level);
+  } else {
+    let level = threePlayerLevelList[levelNumber];
+    resetAll(level);
+    return await doThreePlayerLoop(level);
+  }
 };
 
 document.addEventListener("onkeyup", function (e) {
@@ -201,64 +355,98 @@ document.addEventListener("onkeyup", function (e) {
   }
 });
 
-changeLevel = () => {
-  levelNum = (levelNum + 1) % numLevels;
+const changeLevel = () => {
+  if (numPlayers == 2) {
+    levelNum = (levelNum + 1) % numLevels;
+  } else {
+    levelNum = (levelNum + 1) % threePlayerNumLevels;
+  }
 };
 
 const redScoreText = document.getElementById("redScore");
 const blueScoreText = document.getElementById("blueScore");
+const greenScoreText = document.getElementById("greenScore");
+const threeRedScoreText = document.getElementById("threePlayerRedScore");
+const threeBlueScoreText = document.getElementById("threePlayerBlueScore");
+const threeGreenScoreText = document.getElementById("threePlayerGreenScore");
 const centerText = document.getElementById("results");
+const threePlayerResults = document.getElementById("threePlayerResults");
 let levelNum = startingLevelIndex;
 
 const runGame = async () => {
-  let runs = 1;
+  if (numPlayers == 2) {
+    let runs = 1;
 
-  let redScore = 0;
-  let blueScore = 0;
-  redScoreText.innerText = `${redScore}`;
-  blueScoreText.innerText = `${blueScore}`;
+    let redScore = 0;
+    let blueScore = 0;
+    redScoreText.innerText = `${redScore}`;
+    blueScoreText.innerText = `${blueScore}`;
 
-  while (redScore < maxScore && blueScore < maxScore) {
-    if (runs != 1 && !mapLocked) {
-      changeLevel();
-    }
-    let objlist = levelList[levelNum][0];
-    if (runs != 1) {
-      resetAll(levelList[levelNum]);
-      await levelClearUp(objlist);
-    }
-    centerText.innerText = "FIGHT!";
-    if (redScore == maxScore - 1 || blueScore == maxScore - 1) {
-      if (redScore == maxScore - 1 && blueScore == maxScore - 1) {
-        centerText.innerText = "CRITICAL MATCH POINT";
-      } else {
-        centerText.innerText = "MATCH POINT";
+    while (redScore < maxScore && blueScore < maxScore) {
+      if (runs != 1 && !mapLocked) {
+        changeLevel();
       }
+      let objlist = levelList[levelNum][0];
+      if (runs != 1) {
+        resetAll(levelList[levelNum]);
+        await levelClearUp(objlist);
+      }
+      centerText.innerText = "FIGHT!";
+      if (redScore == maxScore - 1 || blueScore == maxScore - 1) {
+        if (redScore == maxScore - 1 && blueScore == maxScore - 1) {
+          centerText.innerText = "CRITICAL MATCH POINT";
+        } else {
+          centerText.innerText = "MATCH POINT";
+        }
+      }
+      let result = await runLevel(levelNum);
+      if (result == "one") {
+        redScore++;
+        redScoreText.innerText = `${redScore}`;
+        centerText.innerText = "RED WINS!";
+      } else if (result == "two") {
+        blueScore++;
+        blueScoreText.innerText = `${blueScore}`;
+        centerText.innerText = "BLUE WINS!";
+      } else {
+        centerText.innerText = "TIE";
+      }
+      await levelClearDown(objlist);
+      runs++;
     }
+
+    if (redScore == maxScore) {
+      centerText.innerText = "RED WINS THE GAME!";
+    } else {
+      centerText.innerText = "BLUE WINS THE GAME!";
+    }
+
+    render.clearRect(0, 0, canvWidth, canvHeight);
+    await levelClearUp([], true);
+  } else {
+    //three player mode
+    threeRedScoreText.innerText = `0`;
+    threeBlueScoreText.innerText = `0`;
+    threeGreenScoreText.innerText = `0`;
+
+    let objlist = threePlayerLevelList[levelNum][0];
+
     let result = await runLevel(levelNum);
+    threePlayerResults.style.display = "block";
     if (result == "one") {
       redScore++;
-      redScoreText.innerText = `${redScore}`;
-      centerText.innerText = "RED WINS!";
+      threePlayerResults.innerText = "RED WINS!";
     } else if (result == "two") {
       blueScore++;
-      blueScoreText.innerText = `${blueScore}`;
-      centerText.innerText = "BLUE WINS!";
+      threePlayerResults.innerText = "BLUE WINS!";
     } else {
-      centerText.innerText = "TIE";
+      threePlayerResults.innerText = "GREEN WINS!";
     }
     await levelClearDown(objlist);
-    runs++;
-  }
 
-  if (redScore == maxScore) {
-    centerText.innerText = "RED WINS THE GAME!";
-  } else {
-    centerText.innerText = "BLUE WINS THE GAME!";
+    render.clearRect(0, 0, canvWidth, canvHeight);
+    await levelClearUp([], true);
   }
-
-  render.clearRect(0, 0, canvWidth, canvHeight);
-  await levelClearUp([], true);
 };
 
 runGame();
@@ -266,5 +454,32 @@ runGame();
 document.getElementById("restart").onclick = () => {
   animations.forEach((animation) => animation.cancel());
   if (!mapLocked) changeLevel();
+  runGame();
+};
+
+document.getElementById("players").onclick = () => {
+  animations.forEach((animation) => animation.cancel());
+  if (numPlayers == 2) {
+    numPlayers = 3;
+    document.getElementById("players").innerText = "2 Players";
+    document.getElementById("twoPlayerContainer").style.display = "none";
+    document.getElementById("threePlayerContainer").style.display = "flex";
+    document.getElementById("twoPlayerInstructions").style.display = "none";
+    document.getElementById("threePlayerInstructions").style.display = "flex";
+    levelNum = threePlayerStartingIndex;
+    listsToThree();
+    flagSpeedDebuff = 0.94;
+  } else {
+    numPlayers = 2;
+    document.getElementById("players").innerText = "3 Players";
+    document.getElementById("twoPlayerContainer").style.display = "flex";
+    document.getElementById("threePlayerContainer").style.display = "none";
+    document.getElementById("twoPlayerInstructions").style.display = "flex";
+    document.getElementById("threePlayerInstructions").style.display = "none";
+    threePlayerResults.style.display = "none";
+    levelNum = startingLevelIndex;
+    listsToTwo();
+    flagSpeedDebuff = 0.94;
+  }
   runGame();
 };

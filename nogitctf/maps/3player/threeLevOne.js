@@ -366,18 +366,182 @@ lev1centerBorderThing = new Rectangle(
   false,
   "bordertop"
 );
+lev1LeftBorder = new Rectangle(
+  0,
+  groundPos - 800,
+  5,
+  800,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "borderleft"
+);
+lev1RightBorder = new Rectangle(
+  canvWidth - 5,
+  groundPos - 800,
+  5,
+  800,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "borderright"
+);
+movingPlatSpeed = 20;
+movingPlatDist = 150;
+movingPlatStart = groundPos - 250;
+movingPlatEnd = groundPos - 400;
+movingPlatWidth = 80;
+leftMovingPlat = new MovingRectangle(
+  canvCenter - movingPlatDist - movingPlatWidth / 2,
+  movingPlatStart,
+  movingPlatWidth,
+  15,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "wallmoving",
+  canvCenter - movingPlatDist - movingPlatWidth / 2,
+  canvCenter - movingPlatDist - movingPlatWidth / 2,
+  movingPlatStart,
+  movingPlatEnd,
+  movingPlatSpeed,
+  true
+);
+rightMovingPlat = new MovingRectangle(
+  canvCenter + movingPlatDist - movingPlatWidth / 2,
+  movingPlatStart,
+  movingPlatWidth,
+  15,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "wallmoving",
+  canvCenter + movingPlatDist - movingPlatWidth / 2,
+  canvCenter + movingPlatDist - movingPlatWidth / 2,
+  movingPlatStart,
+  movingPlatEnd,
+  movingPlatSpeed,
+  true
+);
+lowerHighPlatDist = 350;
+higherHighPlatDist = 500;
+lowerHighPlatY = groundPos - 370;
+higherHighPlatY = groundPos - 415;
+highPlatWidth = 60;
+leftLowerHighPlat = new Rectangle(
+  canvCenter - lowerHighPlatDist - highPlatWidth / 2,
+  lowerHighPlatY,
+  highPlatWidth,
+  15,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "wallhigh"
+);
+rightLowerHighPlat = new Rectangle(
+  canvCenter + lowerHighPlatDist - highPlatWidth / 2,
+  lowerHighPlatY,
+  highPlatWidth,
+  15,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "wallhigh"
+);
+leftHigherHighPlat = new Rectangle(
+  canvCenter - higherHighPlatDist - highPlatWidth / 2,
+  higherHighPlatY,
+  highPlatWidth,
+  15,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "wallhigh"
+);
+rightHigherHighPlat = new Rectangle(
+  canvCenter + higherHighPlatDist - highPlatWidth / 2,
+  higherHighPlatY,
+  highPlatWidth,
+  15,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "wallhigh"
+);
 
+highsideY = groundPos - 340;
+highsideWidth = 40;
+highsideDist = 670;
+leftHighSidePlat = new Rectangle(
+  canvCenter - highsideDist - highsideWidth / 2,
+  highsideY,
+  highsideWidth,
+  15,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "wallhighside"
+);
+rightHighSidePlat = new Rectangle(
+  canvCenter + highsideDist - highsideWidth / 2,
+  highsideY,
+  highsideWidth,
+  15,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "wallhighside"
+);
 lev1PlayerPos1 = [
   canvCenter - smallPlatSZDist - gamePlayerOne.w / 2,
-  groundPos - 100 - gamePlayerOne.h,
+  groundPos - 120 - gamePlayerOne.h,
   true,
 ];
 lev1PlayerPos2 = [
   canvCenter + smallPlatSZDist - gamePlayerTwo.w / 2,
-  groundPos - 100 - gamePlayerTwo.h,
+  groundPos - 120 - gamePlayerTwo.h,
   true,
 ];
-lev1PlayerPos = [lev1PlayerPos1, lev1PlayerPos2];
+lev1PlayerPos3 = [
+  canvCenter - gamePlayerThree.w / 2,
+  groundPos - gamePlayerThree.h - 120,
+  true,
+];
+lev1PlayerPos = [lev1PlayerPos1, lev1PlayerPos2, lev1PlayerPos3];
+crownPos = [
+  canvCenter + firstPlatDist - 35 + 25 - crownRect.width / 2,
+  groundPos - 100 - crownRect.height,
+];
 
 //object list used for drawing
 lev1ObjectList = [];
@@ -386,9 +550,7 @@ lev1DangerList = [];
 lev1MovePlats = [];
 lev1DangerMovePlats = [];
 
-// Use spread operator for better performance than forEach
-lev1PlatformList.push(...[leftBound, rightBound]);
-lev1ObjectList.push(...[gamePlayerOne, gamePlayerTwo]);
+lev1ObjectList.push(...[gamePlayerOne, gamePlayerTwo, gamePlayerThree]);
 
 lev1Platforms = [
   ground,
@@ -409,27 +571,27 @@ lev1Platforms = [
   lev1Platform22,
   lev1Platform23,
   lev1Platform24,
+  leftLowerHighPlat,
+  rightLowerHighPlat,
+  leftHigherHighPlat,
+  rightHigherHighPlat,
+  leftHighSidePlat,
+  rightHighSidePlat,
   lev1centerBorderThing,
+  lev1LeftBorder,
+  lev1RightBorder,
 ];
-// Use spread operator instead of forEach for better performance
 lev1PlatformList.push(...lev1Platforms);
 lev1ObjectList.push(...lev1Platforms);
 
-lev1MPlats = [];
+lev1MPlats = [leftMovingPlat, rightMovingPlat];
 if (lev1MPlats.length > 0) {
   lev1MovePlats.push(...lev1MPlats);
   lev1ObjectList.push(...lev1MPlats);
   lev1PlatformList.push(...lev1MPlats);
 }
 
-lev1DP = [
-  lev1MovingPlatform1,
-  lev1MovingPlatform2,
-  lev1MovingPlatform3,
-  lev1MovingPlatform4,
-  lev1MovingPlatform5,
-  lev1MovingPlatform6,
-];
+lev1DP = [];
 lev1DangerMovePlats.push(...lev1DP);
 lev1ObjectList.push(...lev1DP);
 //clearRect needs to be added last
@@ -437,10 +599,10 @@ lev1ObjectList.push(...lev1DP);
 lev1 = [
   lev1ObjectList,
   lev1PlatformList,
-  lev1DangerList,
   lev1MovePlats,
-  lev1DangerMovePlats,
   lev1PlayerPos,
+  crownPos,
   1,
 ];
-levelList.push(lev1);
+
+threePlayerLevelList.push(lev1);
