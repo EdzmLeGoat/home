@@ -19,7 +19,7 @@ const numLevels = 5;
 
 const threePlayerStartingIndex = 0;
 const threePlayerNumLevels = 1;
-const threePlayerMaxScore = 30;
+const threePlayerMaxScore = 45;
 
 let numPlayers = 2;
 

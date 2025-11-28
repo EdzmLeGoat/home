@@ -202,7 +202,12 @@ const doThreePlayerLoop = (level) => {
     gamePlayers[tiebreaker].flagged = true;
     gamePlayers[tiebreaker].movementSpeed = flaggedSpeed;
   };
-
+  let changeCrown = (giver, holder) => {
+    deadFrames[giver.index] = threePlayerReset(giver, level);
+    holder.flagged = true;
+    holder.movementSpeed = flaggedSpeed;
+    invulnerableFrames[holder.index] = fps * 2;
+  };
   let scoreElements = [
     threePlayerRedScore,
     threePlayerBlueScore,
@@ -233,14 +238,6 @@ const doThreePlayerLoop = (level) => {
       ]);
 
       inDangers = [false, false, false];
-
-      for (let player of gamePlayers) {
-        if (!player.flagged && rectsColliding(player, crownRect)) {
-          player.flagged = true;
-          player.movementSpeed = flaggedSpeed;
-          invulnerableFrames[player.index] = fps * 2;
-        }
-      }
 
       for (let player of gamePlayers) {
         if (player.flagged) {
@@ -275,14 +272,9 @@ const doThreePlayerLoop = (level) => {
         if (twoColliding && threeColliding) {
           threePlayerResetAll();
         } else if (twoColliding) {
-          deadFrames[0] = threePlayerReset(gamePlayerOne, level);
-          gamePlayerTwo.flagged = true;
-          gamePlayerTwo.movementSpeed = flaggedSpeed;
+          changeCrown(gamePlayerOne, gamePlayerTwo);
         } else if (threeColliding) {
-          console.log("1 and 3 collide");
-          deadFrames[0] = threePlayerReset(gamePlayerOne, level);
-          gamePlayerThree.flagged = true;
-          gamePlayerThree.movementSpeed = flaggedSpeed;
+          changeCrown(gamePlayerOne, gamePlayerThree);
         }
       }
       if (inDangers[1]) {
@@ -293,13 +285,9 @@ const doThreePlayerLoop = (level) => {
         if (oneColliding && threeColliding) {
           threePlayerResetAll();
         } else if (oneColliding) {
-          deadFrames[1] = threePlayerReset(gamePlayerTwo, level);
-          gamePlayerOne.flagged = true;
-          gamePlayerOne.movementSpeed = flaggedSpeed;
+          changeCrown(gamePlayerTwo, gamePlayerOne);
         } else if (threeColliding) {
-          deadFrames[1] = threePlayerReset(gamePlayerTwo, level);
-          gamePlayerThree.flagged = true;
-          gamePlayerThree.movementSpeed = flaggedSpeed;
+          changeCrown(gamePlayerTwo, gamePlayerThree);
         }
       }
       if (inDangers[2]) {
@@ -310,14 +298,9 @@ const doThreePlayerLoop = (level) => {
         if (twoColliding && oneColliding) {
           threePlayerResetAll();
         } else if (twoColliding) {
-          deadFrames[2] = threePlayerReset(gamePlayerThree, level);
-          gamePlayerTwo.flagged = true;
-          gamePlayerTwo.movementSpeed = flaggedSpeed;
+          changeCrown(gamePlayerThree, gamePlayerTwo);
         } else if (oneColliding) {
-          console.log("3 and 1 collide");
-          deadFrames[2] = threePlayerReset(gamePlayerThree, level);
-          gamePlayerOne.flagged = true;
-          gamePlayerOne.movementSpeed = flaggedSpeed;
+          changeCrown(gamePlayerThree, gamePlayerOne);
         }
       }
 
@@ -481,14 +464,18 @@ document.getElementById("players").onclick = () => {
     document.getElementById("players").innerText = "2 Players";
     document.getElementById("twoPlayerContainer").style.display = "none";
     document.getElementById("threePlayerContainer").style.display = "flex";
+    document.getElementById("twoPlayerInstructions").style.display = "none";
+    document.getElementById("threePlayerInstructions").style.display = "flex";
     levelNum = threePlayerStartingIndex;
     listsToThree();
-    flagSpeedDebuff = 1.06;
+    flagSpeedDebuff = 0.94;
   } else {
     numPlayers = 2;
     document.getElementById("players").innerText = "3 Players";
     document.getElementById("twoPlayerContainer").style.display = "flex";
     document.getElementById("threePlayerContainer").style.display = "none";
+    document.getElementById("twoPlayerInstructions").style.display = "flex";
+    document.getElementById("threePlayerInstructions").style.display = "none";
     threePlayerResults.style.display = "none";
     levelNum = startingLevelIndex;
     listsToTwo();

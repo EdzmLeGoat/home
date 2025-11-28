@@ -42,6 +42,7 @@
       </nav>
 
       <canvas id="myCanvas" width="1370px" height="540px"></canvas>
+
       <footer>
         <div id="description"></div>
         <div class="fsClick" width="40px" height="40px">
@@ -57,6 +58,65 @@
         <button class="btn" id="restart">Restart Game</button>
         <button class="btn" id="players">3 Players</button>
       </footer>
+      <div class="instructions">
+        <h2>Instructions:</h2>
+        <div class="instructions-content" id="twoPlayerInstructions">
+          <div class="keybinds">
+            <ul>
+              <li>Player One (Red):</li>
+              <li>[A] Move Left</li>
+              <li>[D] Move Right</li>
+              <li>[W] Jump</li>
+              <li>[S] Stomp</li>
+            </ul>
+            <ul>
+              <li>Player Two (Blue):</li>
+              <li>[J] Move Left</li>
+              <li>[L] Move Right</li>
+              <li>[I] Jump</li>
+              <li>[K] Stomp</li>
+            </ul>
+          </div>
+          <ul>
+            <li>Return to your base to score points.</li>
+            <li>First to 5 points wins!</li>
+          </ul>
+        </div>
+        <div
+          class="instructions-content"
+          id="threePlayerInstructions"
+          style="display: none"
+        >
+          <div class="keybinds">
+            <ul>
+              <li>Player One (Red):</li>
+              <li>[A] Move Left</li>
+              <li>[D] Move Right</li>
+              <li>[W] Jump</li>
+              <li>[S] Stomp</li>
+            </ul>
+            <ul>
+              <li>Player Two (Blue):</li>
+              <li>[J] Move Left</li>
+              <li>[L] Move Right</li>
+              <li>[I] Jump</li>
+              <li>[K] Stomp</li>
+            </ul>
+            <ul>
+              <li>Player Three (Green):</li>
+              <li>[←] Move Left</li>
+              <li>[→] Move Right</li>
+              <li>[↑] Jump</li>
+              <li>[↓] Stomp</li>
+            </ul>
+          </div>
+          <ul>
+            <li>Steal the crown from other players!</li>
+            <li>Every second on the crown gives you points.</li>
+            <li>First to 45 points wins!</li>
+          </ul>
+        </div>
+      </div>
       <script src="scripts/draw.js"></script>
       <script src="scripts/constants.js"></script>
       <script src="scripts/navbar.js"></script>

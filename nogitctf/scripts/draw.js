@@ -206,8 +206,10 @@ const drawEverything = (objects, dontDraw) => {
   if (dontDraw === undefined) {
     red.drawSelf();
     blue.drawSelf();
-    redSafeZone.drawSelf();
-    blueSafeZone.drawSelf();
+    if (numPlayers == 2) {
+      redSafeZone.drawSelf();
+      blueSafeZone.drawSelf();
+    }
     // redFlag.drawSelf();
     // blueFlag.drawSelf();
 
