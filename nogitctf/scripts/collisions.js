@@ -1,13 +1,24 @@
 let keysPressed = [];
-gamePlayers = [gamePlayerOne, gamePlayerTwo];
-wallPushes = [0, 0];
-inAirs = [false, false];
-smashes = [false, false];
-pushingAnims = [0, 0];
+const gamePlayers = [gamePlayerOne, gamePlayerTwo];
+const wallPushes = [0, 0];
+const inAirs = [false, false];
+const smashes = [false, false];
+const pushingAnims = [0, 0];
 
-function getWallPushes() {
-  return wallPushes;
-}
+const listsToThree = () => {
+  gamePlayers.push(gamePlayerThree);
+  wallPushes.push(0);
+  inAirs.push(false);
+  smashes.push(false);
+  pushingAnims.push(0);
+};
+const listsToTwo = () => {
+  gamePlayers.pop();
+  wallPushes.pop();
+  inAirs.pop();
+  smashes.pop();
+  pushingAnims.pop();
+};
 
 document.addEventListener("keydown", (event) => {
   if (!keysPressed.includes(event.key.toLowerCase())) {
@@ -334,14 +345,14 @@ const resetFlags = () => {
   resetBlueFlag();
 };
 
-const doEverything = (
+function doEverything(
   objects,
   platforms,
   dangers,
   movingPlats,
   movingDangers,
   areMoving
-) => {
+) {
   /* gravity, horizontal movement */
   let playersPlatforms = [];
   //allows the colored stuff's x and y's to be moved separately.
@@ -447,7 +458,87 @@ const doEverything = (
 
   /* updates the canvas */
   drawEverything(objects);
-};
+}
+
+function threePlayerDoEverything(objects, platforms, movingPlats, areMoving) {
+  /* gravity, horizontal movement */
+  let playersPlatforms = [];
+  //allows the colored stuff's x and y's to be moved separately.
+  let updatedMovingPlats = [...movingPlats];
+
+  for (let i = 0; i < 3; i++) {
+    let playerPlatforms = [...platforms];
+    playersPlatforms.push(playerPlatforms);
+  }
+
+  for (const player of gamePlayers) {
+    if (areMoving[player.index]) {
+      physics(
+        player,
+        (set) => {
+          inAirs[player.index] = set;
+        },
+        (set) => {
+          smashes[player.index] = set;
+        }
+      );
+    }
+
+    wallPushes[player.index] =
+      wallPushes[player.index] > 0
+        ? wallPushes[player.index] - 1
+        : wallPushes[player.index] < 0
+        ? wallPushes[player.index] + 1
+        : 0;
+    if (pushingAnims[player.index] > 0) {
+      pushingAnims[player.index]--;
+    }
+
+    if (areMoving[player.index]) {
+      doHorizontalStuff(player, playersPlatforms[player.index], (set) => {
+        inAirs[player.index] = set;
+      });
+    }
+  }
+
+  /* updates x platforms ONCE */
+  updateXPlatforms(updatedMovingPlats);
+
+  /* updates y platforms ONCE */
+  updateYPlatforms(updatedMovingPlats);
+
+  for (const player of gamePlayers) {
+    if (areMoving[player.index]) {
+      player.yvel += gravity;
+      player.updateY();
+      checkFloor(
+        player,
+        playersPlatforms[player.index],
+        (set) => {
+          inAirs[player.index] = set;
+        },
+        (set) => {
+          smashes[player.index] = set;
+        }
+      );
+    }
+  }
+
+  for (const player of gamePlayers) {
+    if (pushingAnims[player.index]) {
+      colors = [0, 0, 0];
+      colors[player.index] = 255;
+      player.oc = `rgba(${colors[0]},${colors[2]},${colors[1]},1)`;
+      player.outlineWidth = reboundWidth;
+    } else {
+      player.oc = "white";
+      player.outlineWidth = outlineWidth;
+    }
+  }
+
+  /* updates the canvas */
+  drawEverything(objects);
+}
 
 function reset(gamePlayer, level) {
   let whichPlayer = gamePlayer.index;
@@ -467,5 +558,23 @@ function reset(gamePlayer, level) {
   gamePlayer.a = playerVisibility;
   gamePlayer.oc = `rgba(255,255,255,${playerVisibility})`;
 
+  return fps * revivalTimeout;
+}
+
+function threePlayerReset(gamePlayer, level) {
+  let whichPlayer = gamePlayer.index;
+  gamePlayer.x = level[3][whichPlayer][0];
+  gamePlayer.y = level[3][whichPlayer][1];
+  gamePlayer.xvel = 0;
+  gamePlayer.yvel = 0;
+  gamePlayer.movementSpeed = movementSpeed;
+  gamePlayer.maxVel = maxVel;
+  gamePlayer.flagged = false;
+  wallPushes[whichPlayer] = 0;
+  smashes[whichPlayer] = false;
+  pushingAnims[whichPlayer] = false;
+  inAirs[whichPlayer] = level[3][whichPlayer][2];
+  gamePlayer.a = playerVisibility;
+  gamePlayer.oc = `rgba(255,255,255,${playerVisibility})`;
   return fps * revivalTimeout;
 }

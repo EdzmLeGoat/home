@@ -29,6 +29,10 @@ lev1PlayerPos3 = [
   true,
 ];
 lev1PlayerPos = [lev1PlayerPos1, lev1PlayerPos2, lev1PlayerPos3];
+crownPos = [
+  canvCenter + firstPlatDist - 35 + 25 - crownRect.width / 2,
+  groundPos - 100 - crownRect.height,
+];
 
 //object list used for drawing
 lev1ObjectList = [];
@@ -37,12 +41,9 @@ lev1DangerList = [];
 lev1MovePlats = [];
 lev1DangerMovePlats = [];
 
-// Use spread operator for better performance than forEach
-lev1PlatformList.push(...[leftBound, rightBound]);
-lev1ObjectList.push(...[gamePlayerOne, gamePlayerTwo]);
+lev1ObjectList.push(...[gamePlayerOne, gamePlayerTwo, gamePlayerThree]);
 
-lev1Platforms = [ground, lev1Platform1];
-// Use spread operator instead of forEach for better performance
+lev1Platforms = [ground, redSafeZone, blueSafeZone, lev1Platform1];
 lev1PlatformList.push(...lev1Platforms);
 lev1ObjectList.push(...lev1Platforms);
 
@@ -61,10 +62,10 @@ lev1ObjectList.push(...lev1DP);
 lev1 = [
   lev1ObjectList,
   lev1PlatformList,
-  lev1DangerList,
   lev1MovePlats,
-  lev1DangerMovePlats,
   lev1PlayerPos,
+  crownPos,
   1,
 ];
-levelList.push(lev1);
+
+threePlayerLevelList.push(lev1);

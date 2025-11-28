@@ -215,14 +215,14 @@ lev5BlockCol = new Rectangle(
   "lev5blockcolleft"
 );
 lowblockerleft = new Rectangle(
-  redSafeZone.w,
+  0,
   groundPos - 70,
-  10,
+  redSafeZone.w + 10,
   70,
   render,
-  0,
-  0,
-  0,
+  20,
+  20,
+  25,
   1,
   false,
   "lev5blockcolleft"
@@ -230,12 +230,12 @@ lowblockerleft = new Rectangle(
 lowblockerright = new Rectangle(
   canvWidth - blueSafeZone.w - 10,
   groundPos - 70,
-  10,
+  blueSafeZone.w + 10,
   70,
   render,
-  0,
-  0,
-  0,
+  20,
+  20,
+  25,
   1,
   false,
   "lev5blockcolright"

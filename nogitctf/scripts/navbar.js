@@ -1,7 +1,7 @@
 const htmlBody = document.body;
 
-ground.r = 145;
-ground.g = 0;
+ground.r = 20;
+ground.g = 20;
 ground.b = 25;
 
 //dark mode constants
