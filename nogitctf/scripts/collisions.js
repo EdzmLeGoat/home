@@ -30,14 +30,18 @@ document.addEventListener("keyup", (event) => {
   keysPressed = keysPressed.filter((e) => e != event.key.toLowerCase());
 });
 
+const blockedKeys = new Set([
+  "Space",
+  "ArrowUp",
+  "ArrowDown",
+  "ArrowLeft",
+  "ArrowRight",
+]);
+
 window.addEventListener(
   "keydown",
   function (e) {
-    if (
-      ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
-        e.code
-      ) > -1
-    ) {
+    if (blockedKeys.has(e.code)) {
       e.preventDefault();
     }
   },
@@ -53,18 +57,16 @@ const physics = (gamePlayer, setAirMethod, setSmashMethod) => {
   for (key of keysPressed) {
     if (key == gamePlayer.rk) {
       gamePlayer.xvel +=
-        gamePlayer.movementSpeed * (wallPushes[gamePlayer.index] > 0)
-          ? wallPushback
-          : 1;
+        gamePlayer.movementSpeed *
+        (wallPushes[gamePlayer.index] > 0 ? wallPushback : 1);
       if (wallPushes[gamePlayer.index] > 0) {
         pushingAnims[gamePlayer.index] = flashFrames;
         gamePlayer.yvel -= wallVertBoost;
       }
     } else if (key == gamePlayer.lk) {
       gamePlayer.xvel -=
-        gamePlayer.movementSpeed * (wallPushes[gamePlayer.index] < 0)
-          ? wallPushback
-          : 1;
+        gamePlayer.movementSpeed *
+        (wallPushes[gamePlayer.index] < 0 ? wallPushback : 1);
       if (wallPushes[gamePlayer.index] < 0) {
         pushingAnims[gamePlayer.index] = flashFrames;
         gamePlayer.yvel -= wallVertBoost;
@@ -72,7 +74,7 @@ const physics = (gamePlayer, setAirMethod, setSmashMethod) => {
     } else if (key == gamePlayer.uk && !inAirs[gamePlayer.index]) {
       setAirMethod(true);
       gamePlayer.yvel = -jump;
-    } else if (key.toLowerCase() == gamePlayer.dk && inAirs[gamePlayer.index]) {
+    } else if (key == gamePlayer.dk && inAirs[gamePlayer.index]) {
       setSmashMethod(true);
       gamePlayer.xvel *= smashStop;
       if (quadraticSmash) {
