@@ -292,7 +292,7 @@ lev1MovingPlatform6 = new MovingRectangle(
   true
 );
 
-smallPlatSZDist = 585;
+smallPlatSZDist = 600;
 lev1Platform11 = new Rectangle(
   canvCenter + smallPlatSZDist - 20,
   groundPos - 100,

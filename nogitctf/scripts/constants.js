@@ -19,7 +19,7 @@ const numLevels = 5;
 
 const threePlayerStartingIndex = 0;
 const threePlayerNumLevels = 1;
-const threePlayerMaxScore = 45;
+const threePlayerMaxScore = 60;
 
 let numPlayers = 2;
 
@@ -78,8 +78,8 @@ const flashFrames = fps / 2;
 const playerVisibility = 0.3;
 let flagSpeedDebuff = 0.94;
 
-const flaggedSpeed = movementSpeed * flagSpeedDebuff;
-const flaggedMaxVel = maxVel * flagSpeedDebuff;
+let flaggedSpeed = movementSpeed * flagSpeedDebuff;
+let flaggedMaxVel = maxVel * flagSpeedDebuff;
 const playerSize = 20;
 const gamePlayerOne = new Player(
   100,
@@ -215,7 +215,19 @@ const blue = new Rectangle(
   false,
   "blue"
 );
-
+const gray = new Rectangle(
+  0,
+  0,
+  canvWidth,
+  groundPos,
+  render,
+  200,
+  200,
+  200,
+  backgroundTransparency,
+  false,
+  "gray"
+);
 const redSafeZone = new Rectangle(
   0,
   0,

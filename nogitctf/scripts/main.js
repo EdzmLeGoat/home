@@ -469,7 +469,9 @@ document.getElementById("players").onclick = () => {
     document.getElementById("threePlayerInstructions").style.display = "flex";
     levelNum = threePlayerStartingIndex;
     listsToThree();
-    flagSpeedDebuff = 0.94;
+    flagSpeedDebuff = 0.9;
+    flaggedSpeed = movementSpeed * flagSpeedDebuff;
+    flaggedMaxVel = maxVel * flagSpeedDebuff;
   } else {
     numPlayers = 2;
     document.getElementById("players").innerText = "3 Players";
@@ -481,6 +483,8 @@ document.getElementById("players").onclick = () => {
     levelNum = startingLevelIndex;
     listsToTwo();
     flagSpeedDebuff = 0.94;
+    flaggedSpeed = movementSpeed * flagSpeedDebuff;
+    flaggedMaxVel = maxVel * flagSpeedDebuff;
   }
   runGame();
 };

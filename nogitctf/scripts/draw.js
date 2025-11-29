@@ -204,11 +204,13 @@ class MovingRectangle extends Rectangle {
 const drawEverything = (objects, dontDraw) => {
   render.clearRect(0, 0, canvas.width, canvas.height);
   if (dontDraw === undefined) {
-    red.drawSelf();
-    blue.drawSelf();
     if (numPlayers == 2) {
       redSafeZone.drawSelf();
       blueSafeZone.drawSelf();
+      red.drawSelf();
+      blue.drawSelf();
+    } else {
+      gray.drawSelf();
     }
     // redFlag.drawSelf();
     // blueFlag.drawSelf();
