@@ -15,7 +15,7 @@ const groundPos = 525;
 const animations = [];
 
 const startingLevelIndex = 2;
-const numLevels = 5;
+const numLevels = 4;
 
 const threePlayerStartingIndex = 0;
 const threePlayerNumLevels = 1;
@@ -221,9 +221,9 @@ const gray = new Rectangle(
   canvWidth,
   groundPos,
   render,
-  200,
-  200,
-  200,
+  255,
+  100,
+  100,
   backgroundTransparency,
   false,
   "gray"

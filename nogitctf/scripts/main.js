@@ -207,6 +207,19 @@ const doThreePlayerLoop = (level) => {
     holder.flagged = true;
     holder.movementSpeed = flaggedSpeed;
     invulnerableFrames[holder.index] = fps * 2;
+    if (holder.index == 0) {
+      gray.r = 255;
+      gray.g = 100;
+      gray.b = 100;
+    } else if (holder.index == 1) {
+      gray.r = 0;
+      gray.g = 255;
+      gray.b = 255;
+    } else {
+      gray.r = 0;
+      gray.g = 255;
+      gray.b = 0;
+    }
   };
   let scoreElements = [
     threePlayerRedScore,
@@ -426,6 +439,10 @@ const runGame = async () => {
     await levelClearUp([], true);
   } else {
     //three player mode
+    gray.r = 255;
+    gray.g = 100;
+    gray.b = 100;
+
     threeRedScoreText.innerText = `0`;
     threeBlueScoreText.innerText = `0`;
     threeGreenScoreText.innerText = `0`;
