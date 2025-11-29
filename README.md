@@ -1,2 +1,3 @@
 # edzm-page
-My Website boy
+home website for my games and stuff
+might add a bio later
