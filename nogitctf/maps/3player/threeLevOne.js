@@ -522,6 +522,32 @@ rightHighSidePlat = new Rectangle(
   false,
   "wallhighside"
 );
+lev1Platform25 = new Rectangle(
+  canvCenter - 40,
+  groundPos - 230,
+  80,
+  15,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "high middle plat"
+);
+lev1Platform26 = new Rectangle(
+  canvCenter - 30,
+  groundPos - 340,
+  60,
+  15,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "high middle plat"
+);
 lev1PlayerPos1 = [
   canvCenter - smallPlatSZDist - gamePlayerOne.w / 2,
   groundPos - 120 - gamePlayerOne.h,
@@ -571,6 +597,8 @@ lev1Platforms = [
   lev1Platform22,
   lev1Platform23,
   lev1Platform24,
+  lev1Platform25,
+  lev1Platform26,
   leftLowerHighPlat,
   rightLowerHighPlat,
   leftHigherHighPlat,
