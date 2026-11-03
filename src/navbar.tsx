@@ -1,4 +1,3 @@
-import React from "react";
 import darkLogo from "./assets/darklogo.svg";
 
 export default function NavBar() {

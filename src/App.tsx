@@ -1,7 +1,5 @@
 import "./App.css";
 import ctfImage from "./assets/ctf.png";
-import darkLogo from "./assets/darklogo.svg";
-import pordleLogo from "./assets/pordlelogo.png";
 import pordleDarkLogo from "./assets/pordledarklogo.png";
 import NavBar from "./navbar";
 
