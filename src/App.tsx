@@ -1,0 +1,39 @@
+import "./App.css";
+import ctfImage from "./assets/ctf.png";
+import darkLogo from "./assets/darklogo.svg";
+import pordleLogo from "./assets/pordlelogo.png";
+import pordleDarkLogo from "./assets/pordledarklogo.png";
+import NavBar from "./navbar";
+
+export default function App() {
+  return (
+    <body>
+      <NavBar />
+      <ul>
+        <div className="card-container">
+          <div className="game-card" id="ctf-card">
+            <li>
+              <a href="/ctf/ctf.html">
+                <img src={ctfImage} alt="Capture The Flag" />
+                <h2>Capture The Flag</h2>
+              </a>
+              <p>2 or 3 Players!</p>
+            </li>
+          </div>
+          <div className="game-card" id="pordle-card">
+            <li>
+              <a href="/pordle">
+                <img id="pordle-image" src={pordleDarkLogo} alt="Pordle" />
+                <h2>Pordle</h2>
+              </a>
+              <p>Single Player</p>
+            </li>
+          </div>
+          <div className="game-card incomplete">
+            <p>Coming Soon!</p>
+          </div>
+        </div>
+      </ul>
+    </body>
+  );
+}

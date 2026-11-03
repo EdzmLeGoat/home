@@ -11,7 +11,7 @@ lev3Platform1 = new Rectangle(
   0,
   1,
   false,
-  "lev3centercol"
+  "lev3centercol",
 );
 
 hingeyshift = 100;
@@ -27,7 +27,7 @@ lev3Platform2 = new Rectangle(
   0,
   1,
   false,
-  "lev3hinge1"
+  "lev3hinge1",
 );
 bighingewidth = 200;
 lev3Platform3 = new Rectangle(
@@ -41,7 +41,7 @@ lev3Platform3 = new Rectangle(
   0,
   1,
   false,
-  "lev3hinge1"
+  "lev3hinge1",
 );
 
 tallplatdist = 550;
@@ -57,7 +57,7 @@ lev3Platform7 = new Rectangle(
   0,
   1,
   false,
-  "lev3tallplat1"
+  "lev3tallplat1",
 );
 lev3Platform8 = new Rectangle(
   canvCenter + tallplatdist - 20,
@@ -70,7 +70,7 @@ lev3Platform8 = new Rectangle(
   0,
   1,
   false,
-  "lev3tallplat1"
+  "lev3tallplat1",
 );
 
 shortplatdist = 420;
@@ -87,7 +87,7 @@ lev3Platform9 = new Rectangle(
   0,
   1,
   false,
-  "lev3shortplat1"
+  "lev3shortplat1",
 );
 lev3Platform10 = new Rectangle(
   canvCenter + shortplatdist - 20,
@@ -100,7 +100,37 @@ lev3Platform10 = new Rectangle(
   0,
   1,
   false,
-  "lev3shortplat1"
+  "lev3shortplat1",
+);
+
+closeplatdist = 270;
+closeplaty = groundPos - 190;
+closeplatw = 30;
+lev3Platform11 = new Rectangle(
+  canvCenter - closeplatdist,
+  closeplaty,
+  closeplatw,
+  15,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "lev3closeplat1",
+);
+lev3Platform12 = new Rectangle(
+  canvCenter + closeplatdist - closeplatw,
+  closeplaty,
+  closeplatw,
+  15,
+  render,
+  0,
+  0,
+  0,
+  1,
+  false,
+  "lev3closeplat1",
 );
 
 lev3PlayerPos1 = [100, groundPos - gamePlayerOne.h - 20, true];
@@ -134,6 +164,8 @@ lev3Platforms = [
   lev3Platform8,
   lev3Platform9,
   lev3Platform10,
+  lev3Platform11,
+  lev3Platform12,
 ];
 lev3Platforms.forEach((platform) => {
   lev3PlatformList.push(platform);

@@ -44,7 +44,7 @@ window.addEventListener(
       e.preventDefault();
     }
   },
-  false
+  false,
 );
 
 // convert player's key string (e.g. 'a', 'ArrowUp', 'arrowup') to an event.code style string ('KeyA', 'ArrowUp')
@@ -378,9 +378,8 @@ function doEverything(
   dangers,
   movingPlats,
   movingDangers,
-  areMoving
+  areMoving,
 ) {
-  console.log(keysPressed);
   /* gravity, horizontal movement */
   let playersPlatforms = [];
   //allows the colored stuff's x and y's to be moved separately.
@@ -395,12 +394,12 @@ function doEverything(
       ...dangers.filter(
         (platform) =>
           (player.n === "one" && platform.n === "reddanger") ||
-          (player.n === "two" && platform.n === "bluedanger")
+          (player.n === "two" && platform.n === "bluedanger"),
       ),
       ...movingDangers.filter(
         (platform) =>
           (player.n === "one" && platform.n === "reddanger") ||
-          (player.n === "two" && platform.n === "bluedanger")
+          (player.n === "two" && platform.n === "bluedanger"),
       ),
     ];
     playersPlatforms.push(playerPlatforms);
@@ -423,7 +422,7 @@ function doEverything(
         },
         (set) => {
           smashes[player.index] = set;
-        }
+        },
       );
     }
 
@@ -431,8 +430,8 @@ function doEverything(
       wallPushes[player.index] > 0
         ? wallPushes[player.index] - 1
         : wallPushes[player.index] < 0
-        ? wallPushes[player.index] + 1
-        : 0;
+          ? wallPushes[player.index] + 1
+          : 0;
     if (pushingAnims[player.index] > 0) {
       pushingAnims[player.index]--;
     }
@@ -462,7 +461,7 @@ function doEverything(
         },
         (set) => {
           smashes[player.index] = set;
-        }
+        },
       );
     }
   }
@@ -489,7 +488,6 @@ function doEverything(
 }
 
 function threePlayerDoEverything(objects, platforms, movingPlats, areMoving) {
-  console.log(keysPressed);
   /* gravity, horizontal movement */
   let playersPlatforms = [];
   //allows the colored stuff's x and y's to be moved separately.
@@ -509,7 +507,7 @@ function threePlayerDoEverything(objects, platforms, movingPlats, areMoving) {
         },
         (set) => {
           smashes[player.index] = set;
-        }
+        },
       );
     }
 
@@ -517,8 +515,8 @@ function threePlayerDoEverything(objects, platforms, movingPlats, areMoving) {
       wallPushes[player.index] > 0
         ? wallPushes[player.index] - 1
         : wallPushes[player.index] < 0
-        ? wallPushes[player.index] + 1
-        : 0;
+          ? wallPushes[player.index] + 1
+          : 0;
     if (pushingAnims[player.index] > 0) {
       pushingAnims[player.index]--;
     }
@@ -548,7 +546,7 @@ function threePlayerDoEverything(objects, platforms, movingPlats, areMoving) {
         },
         (set) => {
           smashes[player.index] = set;
-        }
+        },
       );
     }
   }

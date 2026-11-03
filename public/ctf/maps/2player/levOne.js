@@ -10,7 +10,7 @@ lev1Platform1 = new Rectangle(
   0,
   1,
   false,
-  "wall1"
+  "wall1",
 );
 lev1Platform2 = new Rectangle(
   canvCenter - firstPlatDist - 35,
@@ -23,7 +23,7 @@ lev1Platform2 = new Rectangle(
   0,
   1,
   false,
-  "wall1"
+  "wall1",
 );
 
 lev1Platform3 = new Rectangle(
@@ -37,7 +37,7 @@ lev1Platform3 = new Rectangle(
   0,
   1,
   false,
-  "wall2"
+  "wall2",
 );
 lev1Platform4 = new Rectangle(
   canvCenter - firstPlatDist - 35,
@@ -50,7 +50,7 @@ lev1Platform4 = new Rectangle(
   0,
   1,
   false,
-  "wall2"
+  "wall2",
 );
 
 lev1Platform19 = new Rectangle(
@@ -64,7 +64,7 @@ lev1Platform19 = new Rectangle(
   0,
   1,
   false,
-  "hinge1"
+  "hinge1",
 );
 lev1Platform20 = new Rectangle(
   canvCenter + firstPlatDist + 55 - 20,
@@ -77,7 +77,7 @@ lev1Platform20 = new Rectangle(
   0,
   1,
   false,
-  "hinge1"
+  "hinge1",
 );
 
 lev1Platform23 = new Rectangle(
@@ -91,7 +91,7 @@ lev1Platform23 = new Rectangle(
   0,
   1,
   false,
-  "hinge2"
+  "hinge2",
 );
 lev1Platform24 = new Rectangle(
   canvCenter + firstPlatDist + 55 - 20 - 10 - lev1Platform2.w,
@@ -104,7 +104,7 @@ lev1Platform24 = new Rectangle(
   0,
   1,
   false,
-  "hinge2"
+  "hinge2",
 );
 
 lev1Platform5 = new Rectangle(
@@ -118,7 +118,7 @@ lev1Platform5 = new Rectangle(
   0,
   1,
   false,
-  "wall3"
+  "wall3",
 );
 lev1Platform6 = new Rectangle(
   canvCenter - 150 - 25,
@@ -131,41 +131,41 @@ lev1Platform6 = new Rectangle(
   0,
   1,
   false,
-  "wall3"
+  "wall3",
 );
 
 lev1Platform7 = new Rectangle(
   canvCenter + 150 - 10,
   groundPos - 100,
   20,
-  100,
+  70,
   render,
   0,
   0,
   0,
   1,
   false,
-  "wall4"
+  "wall4",
 );
 lev1Platform8 = new Rectangle(
   canvCenter - 150 - 10,
   groundPos - 100,
   20,
-  100,
+  70,
   render,
   0,
   0,
   0,
   1,
   false,
-  "wall4"
+  "wall4",
 );
 
 //   lev1Platform9 = new Rectangle(canvCenter-20, groundPos-205, 40, 15, render, 0, 0, 0, 1, false, "smallplat");
 lev1Platform10 = new Rectangle(
-  canvCenter - 60,
+  canvCenter - 70,
   groundPos - 100,
-  120,
+  140,
   15,
   render,
   0,
@@ -173,7 +173,7 @@ lev1Platform10 = new Rectangle(
   0,
   1,
   false,
-  "bigplat"
+  "bigplat",
 );
 
 lev1MovingPlatform1 = new MovingRectangle(
@@ -193,7 +193,7 @@ lev1MovingPlatform1 = new MovingRectangle(
   groundPos - 250,
   groundPos - 375,
   25,
-  true
+  true,
 );
 lev1MovingPlatform2 = new MovingRectangle(
   canvCenter + 100 - 10,
@@ -212,7 +212,7 @@ lev1MovingPlatform2 = new MovingRectangle(
   groundPos - 250 + 19,
   groundPos - 375 + 19,
   25,
-  true
+  true,
 );
 lev1MovingPlatform3 = new MovingRectangle(
   canvCenter + 100 - 10,
@@ -231,7 +231,7 @@ lev1MovingPlatform3 = new MovingRectangle(
   groundPos - 250 - 39,
   groundPos - 375 - 39,
   25,
-  true
+  true,
 );
 
 lev1MovingPlatform4 = new MovingRectangle(
@@ -251,7 +251,7 @@ lev1MovingPlatform4 = new MovingRectangle(
   groundPos - 250,
   groundPos - 375,
   25,
-  true
+  true,
 );
 lev1MovingPlatform5 = new MovingRectangle(
   canvCenter - 100 - 10,
@@ -270,7 +270,7 @@ lev1MovingPlatform5 = new MovingRectangle(
   groundPos - 250 + 19,
   groundPos - 375 + 19,
   25,
-  true
+  true,
 );
 lev1MovingPlatform6 = new MovingRectangle(
   canvCenter - 100 - 10,
@@ -289,7 +289,7 @@ lev1MovingPlatform6 = new MovingRectangle(
   groundPos - 250 - 39,
   groundPos - 375 - 39,
   25,
-  true
+  true,
 );
 
 smallPlatSZDist = 585;
@@ -304,7 +304,7 @@ lev1Platform11 = new Rectangle(
   0,
   1,
   false,
-  "wall5"
+  "wall5",
 );
 lev1Platform12 = new Rectangle(
   canvCenter - smallPlatSZDist - 20,
@@ -317,7 +317,7 @@ lev1Platform12 = new Rectangle(
   0,
   1,
   false,
-  "wall5"
+  "wall5",
 );
 
 middleDist = 315;
@@ -334,7 +334,7 @@ lev1Platform21 = new Rectangle(
   0,
   1,
   false,
-  "wall6"
+  "wall6",
 );
 
 //   lev1Platform14 = new Rectangle(canvCenter-middleDist-12, groundPos-140,25,60, render, 0, 0, 0, 1, false, "wall6");
@@ -350,7 +350,7 @@ lev1Platform22 = new Rectangle(
   0,
   1,
   false,
-  "wall6"
+  "wall6",
 );
 
 lev1centerBorderThing = new Rectangle(
@@ -364,7 +364,7 @@ lev1centerBorderThing = new Rectangle(
   0,
   1,
   false,
-  "bordertop"
+  "bordertop",
 );
 
 lev1PlayerPos1 = [
