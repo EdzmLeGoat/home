@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="ctfstyle.css" />
+    <link rel="icon" href="../darklogo.svg" type="image/svg+xml" />
+    <title>Edem's Capture the Flag</title>
+  </head>
+
+  <body>
+    <main>
+      <nav>
+        <a class="main-href" href="/">
+          <img class="main-logo" src="assets/darklogo.svg" alt="" />
+        </a>
+        <div class="score-container" id="twoPlayerContainer">
+          <div class="red">
+            <h1 id="redScore">0</h1>
+          </div>
+          <div class="center">
+            <h1 id="results">FIGHT!</h1>
+          </div>
+          <div class="blue">
+            <h1 id="blueScore">0</h1>
+          </div>
+        </div>
+        <div
+          class="score-container"
+          id="threePlayerContainer"
+          style="display: none"
+        >
+          <div class="red">
+            <h1 id="threePlayerRedScore">0</h1>
+          </div>
+          <div class="blue">
+            <h1 id="threePlayerBlueScore">0</h1>
+          </div>
+          <div class="green">
+            <h1 id="threePlayerGreenScore">0</h1>
+          </div>
+          <h1 id="threePlayerResults"></h1>
+        </div>
+      </nav>
+
+      <canvas id="myCanvas" width="1370px" height="540px"></canvas>
+
+      <footer>
+        <div id="description"></div>
+        <div class="fsClick" width="40px" height="40px">
+          <img
+            id="fullscreen"
+            src="assets/nfs.png"
+            alt=""
+            width="20px"
+            height="20px"
+          />
+        </div>
+        <img src="assets/unlock.png" alt="map-lock" id="lock" />
+        <button class="btn" id="restart">Restart Game</button>
+        <button class="btn" id="players">3 Players</button>
+        <p class="scroll">Scroll down for instructions</p>
+      </footer>
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+      <div class="instructions">
+        <h2>Instructions:</h2>
+        <div class="instructions-content" id="twoPlayerInstructions">
+          <div class="keybinds">
+            <ul>
+              <li>Player One (Red):</li>
+              <li>[A] Move Left</li>
+              <li>[D] Move Right</li>
+              <li>[W] Jump</li>
+              <li>[S] Stomp</li>
+            </ul>
+            <ul>
+              <li>Player Two (Blue):</li>
+              <li>[←] Move Left</li>
+              <li>[→] Move Right</li>
+              <li>[↑] Jump</li>
+              <li>[↓] Stomp</li>
+            </ul>
+          </div>
+          <ul>
+            <li>
+              If you jump into a wall, if you press the opposite direction key,
+              you will walljump off. Your outline will flash if performed.
+            </li>
+            <li>
+              This can be used to reach higher platforms. If performed on a
+              corner, it will give a massive vertical boost.
+            </li>
+          </ul>
+          <ul>
+            <li>
+              Evade your opponent while on their side, and tag them when they
+              invade your side.
+            </li>
+            <li>
+              Grab your opponents' flag and return to your base to score points.
+              First to 5 points wins!
+            </li>
+          </ul>
+        </div>
+        <div
+          class="instructions-content"
+          id="threePlayerInstructions"
+          style="display: none"
+        >
+          <div class="keybinds">
+            <ul>
+              <li>Player One (Red):</li>
+              <li>[A] Move Left</li>
+              <li>[D] Move Right</li>
+              <li>[W] Jump</li>
+              <li>[S] Stomp</li>
+            </ul>
+            <ul>
+              <li>Player Two (Blue):</li>
+              <li>[←] Move Left</li>
+              <li>[→] Move Right</li>
+              <li>[↑] Jump</li>
+              <li>[↓] Stomp</li>
+            </ul>
+            <ul>
+              <li>Player Three (Green):</li>
+              <li>[F] Move Left</li>
+              <li>[H] Move Right</li>
+              <li>[T] Jump</li>
+              <li>[G] Stomp</li>
+            </ul>
+          </div>
+          <ul>
+            <li>
+              If you jump into a wall, if you press the opposite direction key,
+              you will walljump off. Your outline will flash if performed.
+            </li>
+            <li>
+              This can be used to reach higher platforms. If performed on a
+              corner, it will give a massive vertical boost.
+            </li>
+          </ul>
+          <ul>
+            <li>Steal the crown from other players!</li>
+            <li>Every second on the crown gives you points.</li>
+            <li>First to 60 points wins!</li>
+          </ul>
+        </div>
+      </div>
+
+      <script src="scripts/draw.js"></script>
+      <script src="scripts/constants.js"></script>
+      <script src="scripts/navbar.js"></script>
+      <script src="maps/2player/levOne.js"></script>
+      <script src="maps/2player/levTwo.js"></script>
+      <script src="maps/2player/levThree.js"></script>
+      <script src="maps/2player/levFour.js"></script>
+      <script src="maps/2player/levFive.js"></script>
+      <script src="maps/3player/threeLevOne.js"></script>
+      <script src="scripts/transitions.js"></script>
+      <script src="scripts/lib.js"></script>
+      <script src="scripts/collisions.js"></script>
+      <script src="scripts/main.js"></script>
+
+      <a href="../index.html">Back to Home</a>
+      <p class="copyright">&copy; Edzm 2025</p>
+    </main>
+  </body>
+</html>
