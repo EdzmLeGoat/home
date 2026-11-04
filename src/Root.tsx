@@ -4,7 +4,7 @@ import Pordle from "./pordle";
 export default function Root() {
   const path = window.location.pathname.replace(/\/+$/, "") || "/";
 
-  if (path === "/pordle") {
+  if (path === "/home/pordle") {
     return <Pordle />;
   }
 
