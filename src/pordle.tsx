@@ -255,7 +255,7 @@ function usePokemonList() {
         const genNums = Array.from({ length: 9 }).map((_, i) => i + 1);
         const genPromises = genNums.map(async (g) => {
           try {
-            const genUrl = `/pokejson/gen_${g}.json`;
+            const genUrl = `/home/pokejson/gen_${g}.json`;
             const r = await fetch(genUrl);
             const d = await r.json();
             // json files returns a list of species objects, each with a name, id, and generation property. We only care about the name property for our purposes.
